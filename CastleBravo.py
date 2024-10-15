@@ -17,5 +17,13 @@ def vehicleResponseSystem():
     if weatherAlert == "snowy":
         print("\nThe National Service has updated our alarm by 30 minutes because"
               " of the forecast of", weatherAlert, "weather conditions.")
+        sleep(1)
+        print("\nVRS system has been engaged only allowing you to drive 55 mph")
+    elif weatherAlert == "blizzard":
+        print("\nThe National Service has updated our alarm by 45 minutes because"
+              " of the forecast of", weatherAlert, "weather conditions.")
+        sleep(1)
+        print("\nVRS system has been engaged only allowing you to drive 45 mph")
+
 
 vehicleResponseSystem()
