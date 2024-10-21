@@ -28,6 +28,7 @@ while X != 20:
         ellipsis = 0
     if X == 20:  # When the loop reaches 20 iterations, print the access granted message in pink
         print(f"{PINK}\n\nOperating System Booted up - Retina Scanned - Access Granted{RESET}")
+
 print("\n********************************\n")
 print("Weather Branch\n")
 
