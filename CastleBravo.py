@@ -1,57 +1,45 @@
-# Print a header for the output
-print("\n**************************************\n")
-print("Gasoline Branch")
+import random
+from time import sleep
 
-# Import the necessary modules
-import random  # For generating random choices
-from time import sleep  # To introduce delays in the output for realism
-
-
-# Function to simulate a gas level gauge reading
+# Function to simulate gas level reading
 def gasLevelGauge():
-    # List of possible gas levels
     gasLevelList = ["Empty", "Low", "Quarter Tank", "Half Tank", "Three Quarter Tank", "Full Tank"]
-    # Randomly choose one of the gas levels and return it
     return random.choice(gasLevelList)
-
 
 # Function to simulate selecting a random gas station
 def gasStations():
-    # List of possible gas station names
-    listOfGasStations = ["VP", "Shell", "Meijer", "Sams Club", "Marathon", "Mobile", "Speedway", "Circle K"]
-    # Randomly choose one gas station from the list and return it
-    return random.choice(listOfGasStations)
+    gasStationsList = ["VP", "Shell", "Meijer", "Sams Club", "Marathon", "Mobile", "Speedway", "Circle K"]
+    return random.choice(gasStationsList)
 
-
-# Function to give alerts based on the current gas level
+# Function to alert based on gas level
 def gasLevelAlert():
-    # Randomly determine the distance to a gas station based on gas levels
-    milesToGasStationLow = round(random.uniform(1, 25), 1)  # Distance for "Low" fuel level
-    milesToGasStationQuarterTank = round(random.uniform(25.1, 50), 1)  # Distance for "Quarter Tank" fuel level
+    gasLevel = gasLevelGauge()
 
-    # Get the current gas level using the gasLevelGauge function
-    gasLevelIndicator = gasLevelGauge()
+    # Distances to gas station based on gas level (more efficient handling of random values)
+    distance_alerts = {
+        "Low": round(random.uniform(1, 25), 1),
+        "Quarter Tank": round(random.uniform(25.1, 50), 1)
+    }
 
-    # Provide alerts based on the current gas level
-    if gasLevelIndicator == "Empty":
-        print("***WARNING - YOU ARE ON EMPTY***\n")
-        sleep(2)  # Pause for 2 seconds to simulate time passing
-        print("Calling Triple AAA")  # Simulate calling for roadside assistance
-    elif gasLevelIndicator == "Low":
-        print("Your gas tank is extremely low, checking GPS for the closest gas station")
-        sleep(2)  # Simulate time taken to check GPS
-        print("The closest gas station is", gasStations(), "which is", milesToGasStationLow, "miles away.")
-    elif gasLevelIndicator == "Quarter Tank":
-        print("Your gas tank is on a quarter of a tank, checking GPS for the closest gas station")
+    # Dictionary mapping gas levels to appropriate messages/actions
+    gas_responses = {
+        "Empty": "***WARNING - YOU ARE ON EMPTY***\nCalling Triple AAA",
+        "Low": f"Your gas tank is extremely low. The closest gas station is {gasStations()} which is {distance_alerts['Low']} miles away.",
+        "Quarter Tank": f"Your gas tank is on a quarter of a tank. The closest gas station is {gasStations()} which is {distance_alerts['Quarter Tank']} miles away.",
+        "Half Tank": "Your gas tank is half full, which is plenty to get to your destination.",
+        "Three Quarter Tank": "Your gas tank is three quarters full, which is plenty to get to your destination.",
+        "Full Tank": "Your gas tank is full!!!"
+    }
+
+    # Simulate the alert
+    if gasLevel == "Empty":
+        print(gas_responses[gasLevel])
+        sleep(2)
+    elif gasLevel in ["Low", "Quarter Tank"]:
+        print(gas_responses[gasLevel])
         sleep(2)  # Simulate GPS check
-        print("The closest gas station is", gasStations(), "which is", milesToGasStationQuarterTank, "miles away.")
-    elif gasLevelIndicator == "Half Tank":
-        print("Your gas tank is a half a tank full which is plenty to get to your destination.")
-    elif gasLevelIndicator == "Three Quarter Tank":
-        print("Your gas tank is three quarters of a tank full which is plenty to get to your destination.")
     else:
-        print("Your gas tank is full!!!")
+        print(gas_responses[gasLevel])
 
-
-# Call the gasLevelAlert function to run the program
+# Call the function to test it
 gasLevelAlert()
