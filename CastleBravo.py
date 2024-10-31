@@ -120,4 +120,3 @@ def gasLevelAlert():
 
 # Call the function to test it
 gasLevelAlert()
-
